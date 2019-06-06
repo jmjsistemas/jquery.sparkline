@@ -1,6 +1,6 @@
 SRC_DIR = src
 DIST_DIR = dist
-COMPILER ?= `which uglifyjs` --no-copyright
+COMPILER ?= `which uglifyjs`
 
 
 SRC_FILES = $(SRC_DIR)/header.js\
@@ -23,16 +23,16 @@ SRC_FILES = $(SRC_DIR)/header.js\
 	$(SRC_DIR)/footer.js
 
 
-VERSION = $(shell cat version.txt)
+VERSION = $(shell type version.txt)
 
 all: jqs-gzip jqs-min-gzip Changelog.txt
 	cp Changelog.txt dist/
 
 jqs: ${SRC_FILES}
-	cat ${SRC_FILES} | sed 's/@VERSION@/${VERSION}/'  >${DIST_DIR}/jquery.sparkline.js
+	type ${SRC_FILES} | sed 's/@VERSION@/${VERSION}/'  >${DIST_DIR}/jquery.sparkline.js
 
 jqs-min: jqs
-	cat minheader.txt | sed 's/@VERSION@/${VERSION}/' >dist/jquery.sparkline.min.js
+	type minheader.txt | sed 's/@VERSION@/${VERSION}/' >dist/jquery.sparkline.min.js
 	${COMPILER} dist/jquery.sparkline.js  >>dist/jquery.sparkline.min.js
 
 jqs-gzip: jqs
